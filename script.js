@@ -12,6 +12,7 @@ function computerPlay() {
 
 // função para disputa da partida
 function playRound(playerSelection, computerSelection) {
+    // escolha do jogador
     playerSelection = prompt('Paper, rock, scissors?').toLowerCase()
 
     // playerSelection está dentro das opções?
@@ -43,9 +44,11 @@ function game() {
     for(playerScore = 0, computerScore = 0; (playerScore < 5 && computerScore < 5);) {
         console.log(playRound(playerSelection, computerPlay()))         
     }
+    // condição de vitoria
     if(playerScore > computerScore) {
         return `Congratulations! You win the game ${playerScore} vs ${computerScore}!`
     }
+    // condição de derrota
     else {
         return `Oh no! You lose the game ${playerScore} vs ${computerScore}!`
     }
