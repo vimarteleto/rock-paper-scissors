@@ -1,7 +1,7 @@
 body {
     background-image: url("images/background.jpg");
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color:antiquewhite
+    color:rgba(219, 219, 219, 0.815)
 }
 
 button {
@@ -43,6 +43,7 @@ button:hover {
 
 h1 {
     text-align: center;
+
 }
 
 
@@ -109,12 +110,12 @@ h1 {
 
 .button-reload {
     margin-top: 20px;
-    height: 30px;
+    height: 50px;
+    width: 200px;
     outline-style: none;  
-}
-
-.reload {
-    background-color: yellow;
+    font-size: large;
+    border-radius: 5px;
+    box-shadow: 4px 4px 4px 1px rgba(126, 125, 125, 0.445);
 }
 
 
