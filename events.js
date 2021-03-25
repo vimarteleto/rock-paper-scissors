@@ -9,13 +9,18 @@ const playerChoice = document.createElement('div')
 const computerChoice = document.createElement('div')
 const played = document.createElement('div')
 const score = document.createElement('div')
+
+// botoes
 const computerButtons = document.querySelectorAll('.computer-btn')
 const playerButtons = document.querySelectorAll('.player-btn')
-
 playerButtons.forEach((button => {
     button.addEventListener('click', playerSelection)
 
 }))
+const buttonReload = document.createElement('button')
+buttonReload.classList.add('button-reload')
+buttonReload.textContent = 'PLAY AGAIN'
+buttonReload.addEventListener('click', reloadPage)
 
 // escolha do computador
 function computerPlay() {   
@@ -23,19 +28,17 @@ function computerPlay() {
     return computerSelection
 }
 
-// remover classes
+// remover classe 'selected'
 function removeClass() {
     playerButtons.forEach((button => {
         button.classList.remove('selected')
-    
     }))
     computerButtons.forEach((button => {
         button.classList.remove('selected')
     }))
-    
 }
 
-// adicionar classe
+// adicionar classe 'selected'
 function addClass() {
     computerButtons.forEach((button => {
         if(computerSelection == button.textContent.toLowerCase()) {
@@ -47,17 +50,18 @@ function addClass() {
 // renderizando escolha do jogador
 function playerNode() {
     playerChoice.setAttribute('id', 'player')
-    playerChoice.textContent = `Player: ${playerSelection}`
-    selectors.appendChild(playerChoice)
+    playerChoice.textContent = playerSelection.toUpperCase()
+    selectors1.appendChild(playerChoice)
 }
 
 // renderizando escolha do computador
 function computerNode() {
     computerChoice.setAttribute('id', 'computer')
-    computerChoice.textContent = `Computer: ${computerSelection}`
-    selectors.appendChild(computerChoice)
+    computerChoice.textContent = computerSelection.toUpperCase()
+    selectors2.appendChild(computerChoice)
 }
 
+// jogar um round
 function playRound(playerSelection, computerSelection) { 
     
     // condição de empate
@@ -71,7 +75,7 @@ function playRound(playerSelection, computerSelection) {
         (playerSelection == 'scissors' && computerSelection == 'rock')
     ) {
         computerScore++
-        played.textContent = `You lose! ${computerSelection} beats ${playerSelection}!`
+        played.textContent = `You lose, ${computerSelection} beats ${playerSelection}!`
     }
     // condição de vitoria
     else if(
@@ -81,7 +85,7 @@ function playRound(playerSelection, computerSelection) {
 
     ) {
         playerScore++
-        played.textContent = `You win! ${playerSelection} beats ${computerSelection}!`
+        played.textContent = `You win, ${playerSelection} beats ${computerSelection}!`
 
     } 
 
@@ -90,47 +94,49 @@ function playRound(playerSelection, computerSelection) {
     result.appendChild(played)
 
     // div com resultado
-    score.textContent = `Player: ${playerScore} vs ${computerScore}: Computer` 
+    score.textContent = `👤 ${playerScore} : ${computerScore} 🤖` 
     score.setAttribute('id', 'score')
     result.appendChild(score)
 
     
 }
 
+// contagem de rounds
 function scoreCount() {
     if(playerScore == 5) {
-        score.textContent = `Congratulations! You win the game ${playerScore} vs ${computerScore}!`
+        score.textContent = `Congratulations! You win the game ${playerScore} : ${computerScore}!`
+        result.appendChild(buttonReload)
     }
     else if(computerScore == 5) {
-        score.textContent = `Oh no! You lose the game ${playerScore} vs ${computerScore}!`
-    }
+        score.textContent = `Oh no! You lose the game ${playerScore} : ${computerScore}!`
+        result.appendChild(buttonReload)
+    }  
 }
 
-// funcao para seleção e jogada
+// main function
 function playerSelection(e) {
     removeClass()    
-
     if(playerScore == 5 || computerScore == 5 ) {
         return
     }
     else {     
-
+        // selectionar o botao selecionado e renderizar
         playerSelection = e.target.textContent.toLowerCase()
         e.target.classList.add('selected')
         playerNode()
 
+        // selecionar e renderizar a jogada do computador
         computerSelection = computerPlay()
-        computerNode()
-    
-        addClass()
+        computerNode() 
         
+        // demais funcoes
+        addClass()        
         playRound(playerSelection, computerSelection)
-
         scoreCount()
     }
-    
-
 }
 
-
-
+// funcao de recarregamento da pagina
+function reloadPage() {
+    window.location.reload()
+}
